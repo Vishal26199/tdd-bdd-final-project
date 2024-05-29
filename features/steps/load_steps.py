@@ -38,9 +38,6 @@ def step_impl(context):
     #
     rest_endpoint = f"{context.base_url}/products"
     context.resp = requests.get(rest_endpoint)
-    if context.resp.status_code != HTTP_200_OK:
-        print(f"Expected status code 200 but got {context.resp.status_code}")
-        print(f"Response content: {context.resp.text}")
     assert(context.resp.status_code == HTTP_200_OK)
     for product in context.resp.json():
         context.resp = requests.delete(f"{rest_endpoint}/{product['id']}")
